@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useApp } from '../../context/AppContext'
+import { useApp } from '../context/AppContext'
 
 export default function ParametresPage() {
   const router = useRouter()

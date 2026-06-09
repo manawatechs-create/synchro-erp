@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import dataService from '../../services/dataService'
-import { useApp } from '../../context/AppContext'
-import { imprimerDocument } from '../../services/printService'
+import dataService from '../services/dataService'
+import { useApp } from '../context/AppContext'
+import { imprimerDocument } from '../services/printService'
 
 export default function CreditsPage() {
   const router = useRouter()

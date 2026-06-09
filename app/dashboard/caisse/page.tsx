@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import dataService from '../../services/dataService'
-import { imprimerRecu } from '../../services/printService'
-import { useApp } from '../../context/AppContext'
+import dataService from '../services/dataService'
+import { imprimerRecu } from '../services/printService'
+import { useApp } from '../context/AppContext'
 
 export default function CaissePage() {
   const router = useRouter()

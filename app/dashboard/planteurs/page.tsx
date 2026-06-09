@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import dataService from '../../services/dataService'
-import { useApp } from '../../context/AppContext'
+import dataService from '../services/dataService'
+import { useApp } from '../context/AppContext'
 
 export default function PlanteursPage() {
   const router = useRouter()
