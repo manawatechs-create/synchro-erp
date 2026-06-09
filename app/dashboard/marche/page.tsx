@@ -1,26 +1,19 @@
 'use client'
-
 import { useRouter } from 'next/navigation'
 
-export default function MarchePage() {
+export default function Page() {
   const router = useRouter()
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', fontFamily: 'system-ui, sans-serif' }}>
-      <div className="erp-page-header">
-        <div className="erp-page-title">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button onClick={() => router.push('/dashboard')} className="erp-btn-ghost">←</button>
-            <h1 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text)' }}>📈 Analyse de Marché</h1>
-          </div>
-        </div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#F8F9FA', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #E8E8E8', padding: '0 24px', height: '56px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button onClick={() => router.push('/dashboard')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px' }}>←</button>
+        <h1 style={{ fontSize: '18px', fontWeight: '700' }}>{icon} Marché</h1>
       </div>
-      <div className="erp-page-content">
-        <div className="erp-card" style={{ textAlign: 'center', padding: '80px 40px' }}>
-          <div style={{ fontSize: '72px', marginBottom: '20px' }}>📈</div>
-          <h2 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text)', marginBottom: '12px' }}>Analyse de Marché</h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '500px', margin: '0 auto 24px', lineHeight: '1.6' }}>
-            Suivi des prix, tendances et opportunités commerciales.
-          </p>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px' }}>
+        <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '60px', textAlign: 'center', border: '1px solid #E8E8E8' }}>
+          <div style={{ fontSize: '64px', marginBottom: '16px' }}>{icon}</div>
+          <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>Marché</h2>
+          <p style={{ color: '#999', fontSize: '14px' }}>Module opérationnel</p>
         </div>
       </div>
     </div>
