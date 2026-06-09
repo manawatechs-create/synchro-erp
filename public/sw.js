@@ -1,8 +1,7 @@
-// Service Worker - Synchro ERP - Mode Hors-Ligne
-const CACHE_NAME = 'synchro-erp-v3';
-const OFFLINE_URL = '/';
+// Service Worker - Synchro ERP
+const CACHE_NAME = 'synchro-erp-v4';
+const OFFLINE_URL = '/login';
 
-// Fichiers à mettre en cache pour le mode hors-ligne
 const urlsToCache = [
   '/',
   '/login',
@@ -10,56 +9,31 @@ const urlsToCache = [
   '/dashboard',
   '/manifest.json',
   '/logo.png',
-  '/icons/dashboard.svg',
-  '/icons/users.svg',
-  '/icons/box.svg',
-  '/icons/cart.svg',
-  '/icons/truck.svg',
-  '/icons/file.svg',
-  '/icons/wallet.svg',
-  '/icons/calculator.svg',
-  '/icons/coins.svg',
-  '/icons/leaf.svg',
-  '/icons/map-pin.svg',
-  '/icons/chart.svg',
-  '/icons/calendar.svg',
-  '/icons/award.svg',
-  '/icons/heart.svg',
-  '/icons/star.svg',
-  '/icons/shield.svg',
-  '/icons/settings.svg',
-  '/icons/download.svg',
-  '/icons/bell.svg',
-  '/icons/search.svg',
-  '/icons/plus.svg',
-  '/icons/edit.svg',
-  '/icons/trash.svg',
-  '/icons/eye.svg',
-  '/icons/logout.svg',
-  '/icons/menu.svg',
-  '/icons/arrow-left.svg',
-  '/icons/arrow-right.svg',
-  '/icons/check.svg',
-  '/icons/x.svg',
+  '/favicon.png',
+  '/apple-touch-icon.png',
 ];
 
-// Installation du Service Worker
-self.addEventListener('install', (event) => {
+// Installation
+self.addEventListener('install', (event: any) => {
+  console.log('📦 Installation du Service Worker...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('📦 Mise en cache des fichiers...');
-        return cache.addAll(urlsToCache);
+        return cache.addAll(urlsToCache).catch(err => {
+          console.log('⚠️ Certains fichiers non mis en cache:', err);
+        });
       })
       .then(() => {
-        console.log('✅ Tous les fichiers sont en cache !');
+        console.log('✅ Service Worker installé !');
         return self.skipWaiting();
       })
   );
 });
 
-// Activation - Nettoyage des anciens caches
-self.addEventListener('activate', (event) => {
+// Activation
+self.addEventListener('activate', (event: any) => {
+  console.log('✅ Service Worker activé !');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -68,14 +42,13 @@ self.addEventListener('activate', (event) => {
           .map((name) => caches.delete(name))
       );
     }).then(() => {
-      console.log('✅ Service Worker activé !');
       return self.clients.claim();
     })
   );
 });
 
-// Stratégie : Network First, puis Cache (mode hors-ligne)
-self.addEventListener('fetch', (event) => {
+// Stratégie : Network First, puis Cache
+self.addEventListener('fetch', (event: any) => {
   // Ne pas intercepter les requêtes API
   if (event.request.url.includes('/api/')) {
     return;
@@ -83,12 +56,14 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     fetch(event.request)
-      .then((response) => {
-        // Mettre en cache la réponse pour le mode hors-ligne
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
+      .then((response: any) => {
+        // Mettre en cache les réponses réussies
+        if (response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
         return response;
       })
       .catch(() => {
@@ -98,20 +73,25 @@ self.addEventListener('fetch', (event) => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // Si la page n'est pas en cache, renvoyer la page d'accueil
-            return caches.match(OFFLINE_URL);
+            // Retourner la page d'accueil pour les pages non trouvées
+            if (event.request.mode === 'navigate') {
+              return caches.match(OFFLINE_URL);
+            }
+            return new Response('Mode hors-ligne - Synchro ERP', {
+              status: 503,
+              headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+            });
           });
       })
   );
 });
 
 // Message de statut
-self.addEventListener('message', (event) => {
+self.addEventListener('message', (event: any) => {
   if (event.data === 'check-status') {
     event.ports[0].postMessage({
       status: 'active',
-      version: CACHE_NAME,
-      cachedFiles: urlsToCache.length
+      version: CACHE_NAME
     });
   }
 });

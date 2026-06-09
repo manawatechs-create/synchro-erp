@@ -1,3 +1,5 @@
+import logService from './logService'
+
 class DataService {
   private get(key: string): any[] { 
     if (typeof window === 'undefined') return []; 
@@ -23,7 +25,6 @@ class DataService {
     ]))
   }
   
-  // Méthodes spécifiques
   getPlanteurs() { return this.get('data_planteurs') }
   getProduits() { return this.get('data_produits') }
   getVentes() { return this.get('data_ventes') }
@@ -35,26 +36,46 @@ class DataService {
   getCredits() { return this.get('data_credits') }
   getReunions() { return this.get('data_reunions') }
   getCotisations() { return this.get('data_cotisations') }
-  
-  // Méthode générique
   getAll(key: string) { return this.get(key) }
   
-  // CRUD
-  create(key: string, item: any) {
+  // CRUD avec logs
+  create(key: string, item: any, moduleName?: string) {
     const c = this.get(key)
-    c.unshift({ ...item, id: Date.now() })
+    const newItem = { ...item, id: Date.now() }
+    c.unshift(newItem)
     this.save(key, c)
-  }
-  update(key: string, id: number, updates: any) {
-    const c = this.get(key)
-    const i = c.findIndex((x: any) => x.id === id)
-    if (i > -1) { c[i] = { ...c[i], ...updates }; this.save(key, c) }
-  }
-  delete(key: string, id: number) { 
-    this.save(key, this.get(key).filter((x: any) => x.id !== id)) 
+    
+    // Logger l'action
+    const module = moduleName || key.replace('data_', '')
+    logService.log('CREATE', module, item.nom || item.titre || item.motif || `ID:${newItem.id}`, JSON.stringify(item).substring(0, 200))
+    
+    return newItem
   }
   
-  // Stats
+  update(key: string, id: number, updates: any, moduleName?: string) {
+    const c = this.get(key)
+    const i = c.findIndex((x: any) => x.id === id)
+    if (i > -1) { 
+      const old = c[i]
+      c[i] = { ...c[i], ...updates }
+      this.save(key, c)
+      
+      const module = moduleName || key.replace('data_', '')
+      logService.log('UPDATE', module, updates.nom || updates.titre || old.nom || old.titre || `ID:${id}`, JSON.stringify(updates).substring(0, 200))
+    }
+  }
+  
+  delete(key: string, id: number, moduleName?: string) {
+    const c = this.get(key)
+    const item = c.find((x: any) => x.id === id)
+    this.save(key, c.filter((x: any) => x.id !== id))
+    
+    if (item) {
+      const module = moduleName || key.replace('data_', '')
+      logService.log('DELETE', module, item.nom || item.titre || item.motif || `ID:${id}`)
+    }
+  }
+  
   getStats() {
     return {
       totalPlanteurs: this.getPlanteurs().length,

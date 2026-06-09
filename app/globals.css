@@ -3,13 +3,32 @@
 @tailwind utilities;
 
 :root {
+  --primary: #CC5500;
+  --primary-light: #FFF5F0;
+  --secondary: #004D4D;
+  --secondary-light: #F0F7F7;
   --bg: #F8F9FA;
   --bg-card: #FFFFFF;
+  --bg-input: #FAFAFA;
   --text: #1a1a1a;
   --text-secondary: #666666;
   --text-muted: #999999;
   --border: #E8E8E8;
+  --border-light: #F0F0F0;
+  --success: #10b981;
+  --success-light: #ECFDF5;
+  --warning: #f59e0b;
+  --warning-light: #FFFBEB;
+  --danger: #ef4444;
+  --danger-light: #FEF2F2;
+  --info: #3b82f6;
+  --info-light: #EFF6FF;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+body { 
+  font-family: system-ui, -apple-system, sans-serif; 
+  background: var(--bg); 
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
