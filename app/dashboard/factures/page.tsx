@@ -19,7 +19,7 @@ export default function FacturesPage() {
 
   const chargerFactures = () => {
     const ventes = dataService.getVentes()
-    // Transformer les ventes en factures formatées
+    / Transformer les ventes en factures formatées
     const facturesData = ventes.map((v: any) => ({
       id: v.id,
       numero: `FAC-${new Date(v.dateVente).getFullYear()}${String(new Date(v.dateVente).getMonth() + 1).padStart(2, '0')}-${String(v.id).padStart(4, '0')}`,

@@ -15,12 +15,12 @@ export default function ReunionsPage() {
   const [reunions, setReunions] = useState<any[]>([])
   const [selectedReunion, setSelectedReunion] = useState<any>(null)
 
-  // Formulaire réunion
+  / Formulaire réunion
   const [formData, setFormData] = useState({
     titre: '', type: 'Assemblée Générale', date: '', heure: '10:00', lieu: '', ordreDuJour: '', notes: ''
   })
 
-  // Formulaire PV
+  / Formulaire PV
   const [pvData, setPvData] = useState({
     reunionId: 0,
     president: '',

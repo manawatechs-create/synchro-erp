@@ -18,7 +18,7 @@ export default function RolesPage() {
     if (!token) { router.push('/login'); return }
     setUserPermissions(getUserPermissions())
     
-    // Charger les rôles existants
+    / Charger les rôles existants
     const savedRoles = localStorage.getItem('customRoles')
     if (savedRoles) {
       setRoles(JSON.parse(savedRoles))
@@ -88,7 +88,7 @@ export default function RolesPage() {
     showNotif('🗑️ Rôle supprimé !')
   }
 
-  // Vérifier si l'utilisateur a la permission de gérer les rôles
+  / Vérifier si l'utilisateur a la permission de gérer les rôles
   if (!hasPermission(userPermissions, 'roles', 'view')) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#F8F9FA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

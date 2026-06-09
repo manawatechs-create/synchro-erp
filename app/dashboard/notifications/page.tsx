@@ -12,7 +12,7 @@ export default function NotificationsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simuler le chargement des notifications
+    / Simuler le chargement des notifications
     const demoNotifications = [
       { id: 1, type: 'alerte', titre: 'Stock faible', message: 'Tomates : seulement 15 kg restants', date: new Date(Date.now() - 3600000).toISOString(), lu: false, lien: '/dashboard/produits' },
       { id: 2, type: 'succes', titre: 'Vente enregistrée', message: '150,000 FCFA - Amadou Diallo', date: new Date(Date.now() - 7200000).toISOString(), lu: false, lien: '/dashboard/ventes' },

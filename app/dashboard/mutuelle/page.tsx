@@ -10,7 +10,7 @@ export default function MutuellePage() {
   const { addNotification, couleurPrincipale } = useApp()
   const [activeTab, setActiveTab] = useState('cotisations')
   const [showForm, setShowForm] = useState(false)
-  const [formType, setFormType] = useState('cotisation') // 'cotisation' ou 'aide'
+  const [formType, setFormType] = useState('cotisation') / 'cotisation' ou 'aide'
   const [planteurs, setPlanteurs] = useState<any[]>([])
   const [cotisations, setCotisations] = useState<any[]>([])
   const [aides, setAides] = useState<any[]>([])
@@ -44,7 +44,7 @@ export default function MutuellePage() {
     }
     dataService.create('data_cotisations', nouvelle)
     
-    // Ajouter en caisse
+    / Ajouter en caisse
     dataService.create('data_operations', {
       type: 'ENTREE',
       montant: parseFloat(formData.montant),
@@ -74,7 +74,7 @@ export default function MutuellePage() {
     aidesActuelles.push(nouvelle)
     localStorage.setItem('data_aides', JSON.stringify(aidesActuelles))
     
-    // Sortie de caisse
+    / Sortie de caisse
     dataService.create('data_operations', {
       type: 'SORTIE',
       montant: parseFloat(aideForm.montant),

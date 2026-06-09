@@ -71,7 +71,7 @@ export default function CreditsPage() {
     const progression = Math.round(((credit.montant - nouveauReste) / credit.montant) * 100)
     const nouveauStatut = nouveauReste === 0 ? 'Remboursé' : 'Actif'
     
-    // Ajouter le remboursement à l'historique
+    / Ajouter le remboursement à l'historique
     const remb = {
       date: new Date().toISOString().split('T')[0],
       montant: montantRemb,
@@ -89,7 +89,7 @@ export default function CreditsPage() {
       remboursements
     })
     
-    // Ajouter une opération de caisse
+    / Ajouter une opération de caisse
     dataService.create('data_operations', {
       type: 'ENTREE',
       montant: montantRemb,

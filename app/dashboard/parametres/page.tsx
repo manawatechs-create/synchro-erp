@@ -16,7 +16,7 @@ export default function ParametresPage() {
   const [user, setUser] = useState<any>(null)
   const [formData, setFormData] = useState({ nom: '', prenom: '', email: '', telephone: '', adresse: '' })
 
-  // Configuration système
+  / Configuration système
   const [systemSettings, setSystemSettings] = useState({
     notifications: true,
     notificationsEmail: true,
@@ -44,7 +44,7 @@ export default function ParametresPage() {
       setUser(u)
       setFormData({ nom: u.nom || '', prenom: u.prenom || '', email: u.email || '', telephone: u.telephone || '', adresse: u.adresse || '' })
     }
-    // Charger les paramètres sauvegardés
+    / Charger les paramètres sauvegardés
     const saved = localStorage.getItem('systemSettings')
     if (saved) setSystemSettings(JSON.parse(saved))
   }, [])
@@ -102,7 +102,7 @@ export default function ParametresPage() {
     { id: 'sauvegarde', label: '💾 Sauvegarde', icon: '💾' },
   ]
 
-  // Style pour les interrupteurs
+  / Style pour les interrupteurs
   const toggleStyle = (active: boolean) => ({
     width: '44px', height: '24px', borderRadius: '12px', border: 'none', cursor: 'pointer',
     backgroundColor: active ? couleurPrincipale : '#ccc', position: 'relative' as const, transition: 'all 0.2s'

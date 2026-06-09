@@ -10,23 +10,23 @@ export default function LoyaltyPage() {
   const { addNotification, couleurPrincipale } = useApp()
   const [activeTab, setActiveTab] = useState('membres')
   const [showForm, setShowForm] = useState(false)
-  const [formType, setFormType] = useState('points') // 'points' ou 'recompense'
+  const [formType, setFormType] = useState('points') / 'points' ou 'recompense'
   const [planteurs, setPlanteurs] = useState<any[]>([])
   const [membres, setMembres] = useState<any[]>([])
   const [recompenses, setRecompenses] = useState<any[]>([])
   const [historique, setHistorique] = useState<any[]>([])
 
-  // Formulaire points
+  / Formulaire points
   const [pointsForm, setPointsForm] = useState({
     planteurId: '', montantAchat: '', pointsGagnes: '', motif: ''
   })
 
-  // Formulaire récompense
+  / Formulaire récompense
   const [recompenseForm, setRecompenseForm] = useState({
     nom: '', pointsRequis: '', description: '', stock: 'Illimité'
   })
 
-  // Attribution récompense
+  / Attribution récompense
   const [attributionForm, setAttributionForm] = useState({
     planteurId: '', recompenseId: ''
   })
@@ -39,7 +39,7 @@ export default function LoyaltyPage() {
   const chargerDonnees = () => {
     const membresData = dataService.getAll('data_loyalty_membres')
     if (membresData.length === 0) {
-      // Initialiser avec les planteurs
+      / Initialiser avec les planteurs
       const planteurs = dataService.getPlanteurs()
       const initMembres = planteurs.map((p: any, i: number) => ({
         id: p.id,
@@ -51,7 +51,7 @@ export default function LoyaltyPage() {
         recompense: 'Aucune',
         progression: 0
       }))
-      // Ajuster les grades selon les points
+      / Ajuster les grades selon les points
       initMembres.forEach((m: any) => {
         if (m.points >= 4000) { m.grade = 'Diamant'; m.progression = 100 }
         else if (m.points >= 3000) { m.grade = 'Platine'; m.progression = 100 }
@@ -141,7 +141,7 @@ export default function LoyaltyPage() {
       dataService.create('data_loyalty_membres', nouveau)
     }
 
-    // Historique
+    / Historique
     const hist = {
       id: Date.now(),
       date: new Date().toISOString().split('T')[0],
@@ -199,7 +199,7 @@ export default function LoyaltyPage() {
     membre.grade = grade.nom
     dataService.update('data_loyalty_membres', membre.id, membre)
 
-    // Historique
+    / Historique
     const hist = {
       id: Date.now(),
       date: new Date().toISOString().split('T')[0],
