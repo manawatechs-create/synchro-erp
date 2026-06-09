@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
-import { useApp } from '@/context/AppContext'
-import { getUserPermissions, hasPermission } from '@/lib/permissions'
+import { useApp } from '../../../context/AppContext'
+import { getUserPermissions, hasPermission } from '../../../lib/permissions'
 
 export default function Sidebar() {
   const router = useRouter()

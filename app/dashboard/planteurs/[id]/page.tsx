@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import dataService from '@/services/dataService'
-import { imprimerCartePlanteur } from '@/services/printService'
-import { useApp } from '@/context/AppContext'
+import dataService from '../../../services/dataService'
+import { imprimerCartePlanteur } from '../../../services/printService'
+import { useApp } from '../../../context/AppContext'
 
 export default function FichePlanteurPage() {
   const router = useRouter()

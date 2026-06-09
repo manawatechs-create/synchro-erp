@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { MODULES, PREDEFINED_ROLES, getUserPermissions, hasPermission } from '@/lib/permissions'
+import { MODULES, PREDEFINED_ROLES, getUserPermissions, hasPermission } from '../../lib/permissions'
 
 export default function RolesPage() {
   const router = useRouter()

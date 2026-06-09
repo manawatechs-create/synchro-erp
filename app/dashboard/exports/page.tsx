@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import dataService from '@/services/dataService'
-import { useApp } from '@/context/AppContext'
+import dataService from '../../services/dataService'
+import { useApp } from '../../context/AppContext'
 import {
   imprimerCartePlanteur, imprimerFacture, imprimerBonLivraison,
   imprimerRecu, imprimerRapport, imprimerAttestation,
   imprimerEcheancier, imprimerPV
-} from '@/services/printService'
+} from '../../services/printService'
 
 export default function ExportsPage() {
   const router = useRouter()
