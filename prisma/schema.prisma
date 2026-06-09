@@ -9,38 +9,43 @@ datasource db {
 }
 
 model Cooperative {
-  id          Int       @id @default(autoincrement())
-  nom         String
-  adresse     String
-  telephone   String
-  email       String    @unique
-  dateCreation DateTime @default(now())
-  membres     Membre[]
-  planteurs   Planteur[]
-  produits    Produit[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id           Int        @id @default(autoincrement())
+  nom          String
+  adresse      String
+  telephone    String
+  email        String     @unique
+  dateCreation DateTime   @default(now())
+  membres      Membre[]
+  planteurs    Planteur[]
+  produits     Produit[]
+  ventes       Vente[]
+  achats       Achat[]
+  caisses      Caisse[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Membre {
-  id            Int       @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   nom           String
   prenom        String
-  email         String    @unique
+  email         String      @unique
   telephone     String
   adresse       String
-  role          String    @default("MEMBRE")
+  role          String      @default("MEMBRE")
   cooperativeId Int
   cooperative   Cooperative @relation(fields: [cooperativeId], references: [id])
   motDePasse    String
-  dateAdhesion  DateTime  @default(now())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  dateAdhesion  DateTime    @default(now())
+  ventes        Vente[]
+  achats        Achat[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Planteur {
-  id            Int       @id @default(autoincrement())
-  identifiant   String    @unique
+  id            Int         @id @default(autoincrement())
+  identifiant   String      @unique
   nom           String
   prenom        String
   telephone     String
@@ -52,12 +57,12 @@ model Planteur {
   dateNaissance DateTime?
   superficie    Float?
   typeCulture   String?
-  statut        String    @default("ACTIF")
+  statut        String      @default("ACTIF")
   cooperativeId Int
   cooperative   Cooperative @relation(fields: [cooperativeId], references: [id])
-  dateAdhesion  DateTime  @default(now())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  dateAdhesion  DateTime    @default(now())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model CategorieProduit {
@@ -69,67 +74,67 @@ model CategorieProduit {
 }
 
 model Produit {
-  id              Int              @id @default(autoincrement())
-  nom             String
-  description     String?
-  prixUnitaire    Float
-  quantiteStock   Int              @default(0)
-  uniteMesure     String           @default("kg")
-  categorieId     Int
-  categorie       CategorieProduit @relation(fields: [categorieId], references: [id])
-  cooperativeId   Int
-  cooperative     Cooperative      @relation(fields: [cooperativeId], references: [id])
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id            Int              @id @default(autoincrement())
+  nom           String
+  description   String?
+  prixUnitaire  Float
+  quantiteStock Int              @default(0)
+  uniteMesure   String           @default("kg")
+  categorieId   Int
+  categorie     CategorieProduit @relation(fields: [categorieId], references: [id])
+  cooperativeId Int
+  cooperative   Cooperative      @relation(fields: [cooperativeId], references: [id])
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 }
 
 model Vente {
-  id            Int       @id @default(autoincrement())
-  dateVente     DateTime  @default(now())
+  id            Int         @id @default(autoincrement())
+  dateVente     DateTime    @default(now())
   montantTotal  Float
-  statut        String    @default("EN_ATTENTE")
+  statut        String      @default("EN_ATTENTE")
   membreId      Int
-  membre        Membre    @relation(fields: [membreId], references: [id])
+  membre        Membre      @relation(fields: [membreId], references: [id])
   cooperativeId Int
   cooperative   Cooperative @relation(fields: [cooperativeId], references: [id])
   notes         String?
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime    @default(now())
 }
 
 model Achat {
-  id            Int       @id @default(autoincrement())
-  dateAchat     DateTime  @default(now())
+  id            Int         @id @default(autoincrement())
+  dateAchat     DateTime    @default(now())
   montantTotal  Float
-  statut        String    @default("EN_ATTENTE")
+  statut        String      @default("EN_ATTENTE")
   membreId      Int
-  membre        Membre    @relation(fields: [membreId], references: [id])
+  membre        Membre      @relation(fields: [membreId], references: [id])
   cooperativeId Int
   cooperative   Cooperative @relation(fields: [cooperativeId], references: [id])
   notes         String?
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime    @default(now())
 }
 
 model Caisse {
-  id            Int       @id @default(autoincrement())
+  id            Int               @id @default(autoincrement())
   nom           String
-  type          String    @default("PRINCIPALE")
-  solde         Float     @default(0)
+  type          String            @default("PRINCIPALE")
+  solde         Float             @default(0)
   cooperativeId Int
-  cooperative   Cooperative @relation(fields: [cooperativeId], references: [id])
+  cooperative   Cooperative       @relation(fields: [cooperativeId], references: [id])
   operations    OperationCaisse[]
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime          @default(now())
 }
 
 model OperationCaisse {
-  id            Int       @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   caisseId      Int
-  caisse        Caisse    @relation(fields: [caisseId], references: [id])
+  caisse        Caisse   @relation(fields: [caisseId], references: [id])
   type          String
   montant       Float
   motif         String
   modePaiement  String?
   reference     String?
-  dateOperation DateTime  @default(now())
+  dateOperation DateTime @default(now())
   notes         String?
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime @default(now())
 }
