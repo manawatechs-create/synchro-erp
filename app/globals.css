@@ -1,8 +1,1 @@
-:root {
-  --bg: #F8F9FA;
-  --text: #1a1a1a;
-  --text-muted: #999999;
-  --border: #E8E8E8;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;background:#F8F9FA;color:#1a1a1a}
